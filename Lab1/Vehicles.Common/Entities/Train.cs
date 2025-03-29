@@ -1,24 +1,13 @@
 using Newtonsoft.Json;
+using Vehicles.Common.ValueObjects;
 
-namespace Vehicles.Common;
+namespace Vehicles.Common.Entities;
 
 /// <summary>
 /// A sealed class that describes the Train entity.
 /// </summary>
 public sealed class Train : Vehicle
 {
-    public enum LocomotiveType
-    {
-        Steam,
-        InternalCombustion,
-        Diesel,
-        Electric,
-        DirectCurrent,
-        AlternatingCurrent,
-        BatteryElectric,
-        Other,
-    }
-    
     private const string DEFAULT_NAME = "Train";
     private const string DEFAULT_COLOR = "Blue";
     private const int DEFAULT_CAPACITY = 120;
