@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Vehicles.Common;
+namespace Vehicles.Common.Entities;
 
 /// <summary>
 /// A sealed class that describes the Ticket entity.

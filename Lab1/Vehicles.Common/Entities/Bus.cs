@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Vehicles.Common;
+namespace Vehicles.Common.Entities;
 
 /// <summary>
 /// A sealed class that describes the Bus entity.
@@ -43,6 +43,9 @@ public sealed class Bus :  Vehicle
     [JsonProperty(nameof(Route))]
     public string Route { get; private set;}
 
+    /// <summary>
+    /// Changes the color of the Vehicle. Cannot change to color of the Bus.
+    /// </summary>
     public override void Paint(string value)
     {
         throw new InvalidOperationException("You cannot paint the bus. Busses should always be yellow.");

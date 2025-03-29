@@ -1,47 +1,47 @@
-﻿
-using Vehicles.Common;
+﻿using Vehicles.Common.Entities;
 using Vehicles.Common.Extensions;
 using Vehicles.Common.Infrastructure;
+using Vehicles.Common.ValueObjects;
 
 var id = Guid.NewGuid();
 
-var train = new Train(id, "Train N24", "Black", 150, Train.LocomotiveType.Steam);
+var train = new Train(id, "Train N24", "Black", 150, LocomotiveType.Steam);
 
 var service = new TrainService();
 service.Load("./trains.json");
 
 service.Create(train);
 
-foreach (var entry in service.ReadAll())
-{
-    Console.WriteLine(entry.ToDetailedString());
-}
+PrintAll(service.ReadAll());
 
-train = service.Read(id);
+var found = service.Read(id);
 
-if (train is null)
+if (found is null)
     throw new Exception("No train found");
 
 train.Paint("Green");
 
-foreach (var entry in service.ReadAll())
-{
-    Console.WriteLine(entry.ToDetailedString());
-}
+PrintAll(service.ReadAll());
 
 service.Update(train);
 
-foreach (var entry in service.ReadAll())
-{
-    Console.WriteLine(entry.ToDetailedString());
-}
+PrintAll(service.ReadAll());
 
 service.Remove(train);
 
-foreach (var entry in service.ReadAll())
-{
-    Console.WriteLine(entry.ToDetailedString());
-}
+PrintAll(service.ReadAll());
 
 service.Create(train);
 //service.Save("./trains.json");
+
+Console.WriteLine($"Total Count: " + Vehicle.VehiclesCount);
+
+void PrintAll(IEnumerable<Vehicle> vehicles)
+{
+    foreach (var entry in vehicles)
+    {
+        Console.WriteLine(entry.ToDetailedString());
+    }
+    
+    Console.WriteLine("=================================================");
+}
