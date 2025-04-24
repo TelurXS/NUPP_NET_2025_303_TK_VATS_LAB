@@ -17,7 +17,7 @@ public sealed class Train : Vehicle
     /// Primary constructor.
     /// </summary>
     public Train()
-        : this(Guid.Empty, DEFAULT_NAME, DEFAULT_COLOR, DEFAULT_CAPACITY, DEFAULT_LOCOMOTIVE)
+        : this(Guid.CreateVersion7(), DEFAULT_NAME, DEFAULT_COLOR, DEFAULT_CAPACITY, DEFAULT_LOCOMOTIVE)
     {
     }
 
@@ -48,4 +48,17 @@ public sealed class Train : Vehicle
     {
         Console.WriteLine($"Chu chu chu chu chu");
     }
+    
+    /// <summary>
+    /// Static method to create a new instance of Train.
+    /// </summary>
+    /// <returns>A new instance of Train.</returns>
+    public static Train Create() => new();
+    
+    /// <summary>
+    /// Static method to create a new instance of Train with parameters.
+    /// </summary>
+    /// <returns>A new instance of Train.</returns>
+    public static Train Create(string name, string color, int capacity, LocomotiveType type)
+        => new(Guid.CreateVersion7(), name, color, capacity, type);
 }
