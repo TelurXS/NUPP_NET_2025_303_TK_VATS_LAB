@@ -9,7 +9,7 @@ namespace Vehicles.Common.Contracts;
 public interface ICrudService<T>
 {
     /// <summary>
-    /// Saves an <typeparamref name="T"/>.
+    /// Saves the <typeparamref name="T"/>.
     /// </summary>
     /// <param name="element">The <typeparamref name="T"/> to be saved.</param>
     public void Create(T element);

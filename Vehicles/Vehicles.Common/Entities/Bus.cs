@@ -16,7 +16,7 @@ public sealed class Bus :  Vehicle
     /// Primary constructor.
     /// </summary>
     public Bus() 
-        : this(Guid.Empty, DEFAULT_NAME, DEFAULT_CAPACITY, DEFAULT_ROUTE)
+        : this(Guid.CreateVersion7(), DEFAULT_NAME, DEFAULT_CAPACITY, DEFAULT_ROUTE)
     {
     }
 
@@ -41,7 +41,7 @@ public sealed class Bus :  Vehicle
     /// The Route of the Bus.
     /// </summary>
     [JsonProperty(nameof(Route))]
-    public string Route { get; private set;}
+    public string Route { get; private set; }
 
     /// <summary>
     /// Changes the color of the Vehicle. Cannot change to color of the Bus.
@@ -50,4 +50,17 @@ public sealed class Bus :  Vehicle
     {
         throw new InvalidOperationException("You cannot paint the bus. Busses should always be yellow.");
     }
+    
+    /// <summary>
+    /// Static method to create a new instance of Bus.
+    /// </summary>
+    /// <returns>A new instance of Bus.</returns>
+    public static Bus Create() => new();
+
+    /// <summary>
+    /// Static method to create a new instance of Bus with parameters.
+    /// </summary>
+    /// <returns>A new instance of Train.</returns>
+    public static Bus Create(string name, int capacity, string route)
+        => new(Guid.CreateVersion7(), name, capacity, route);
 }
