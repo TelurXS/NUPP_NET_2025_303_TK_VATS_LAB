@@ -24,7 +24,7 @@ public sealed class Train : Vehicle
     /// <summary>
     /// Full constructor.
     /// </summary>
-    public Train(Guid  id, string name, string color, int capacity, LocomotiveType type)
+    public Train(Guid id, string name, string color, int capacity, LocomotiveType type)
         : base(id, name, color, capacity)
     {
         Type = type;
@@ -38,6 +38,9 @@ public sealed class Train : Vehicle
     {
     }
     
+    /// <summary>
+    /// The Locomotive type of the Train.
+    /// </summary>
     [JsonProperty(nameof(Type))]
     public LocomotiveType Type { get; private set; }
 
