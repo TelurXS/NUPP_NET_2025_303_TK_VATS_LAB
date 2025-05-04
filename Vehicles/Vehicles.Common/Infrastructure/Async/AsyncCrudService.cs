@@ -15,7 +15,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
     /// <summary>
     /// A semaphore slim that ensures thread safety.
     /// </summary>
-    private readonly SemaphoreSlim _lock = new(1, 1);
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
     
     /// <inheritdoc/>
     public Task<bool> CreateAsync(T element) 
@@ -26,7 +26,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
     /// <inheritdoc/>
     public Task<T?> ReadAsync(Guid id)
     {
-        Task.FromResult(_storage.TryGetValue(id, out var value));
+        _storage.TryGetValue(id, out var value);
         return Task.FromResult(value);
     }
 
@@ -67,7 +67,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
     {
         try
         {
-            await _lock.WaitAsync();
+            await _semaphore.WaitAsync();
             var json = JsonConvert.SerializeObject(_storage);
             await File.WriteAllTextAsync(path, json);
             return true;
@@ -79,7 +79,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
         }
         finally
         {
-            _lock.Release();
+            _semaphore.Release();
         }
     }
 
@@ -88,7 +88,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
     {
         try
         {
-            await _lock.WaitAsync();
+            await _semaphore.WaitAsync();
             var json = await File.ReadAllTextAsync(path);
             _storage = JsonConvert.DeserializeObject<ConcurrentDictionary<Guid, T>>(json)!;
             return true;
@@ -100,7 +100,7 @@ public abstract class AsyncCrudService<T> : IAsyncCrudService<T>
         }
         finally
         {
-            _lock.Release();
+            _semaphore.Release();
         }
     }
 

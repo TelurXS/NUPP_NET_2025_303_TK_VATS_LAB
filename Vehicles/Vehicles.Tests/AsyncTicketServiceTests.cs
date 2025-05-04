@@ -4,13 +4,13 @@ using Vehicles.Common.Infrastructure.Async;
 
 namespace Vehicles.Tests;
 
-public class AsyncTicketServiceTest
+public class AsyncTicketServiceTests
 {
     private const string FILE_PATH = "tickets.json";
     
     private readonly AsyncTicketService _service;
     
-    public AsyncTicketServiceTest()
+    public AsyncTicketServiceTests()
     {
         _service = new();
     }
